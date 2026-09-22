@@ -1,9 +1,3 @@
-# `JustStreamSound` - Android app to make phone be microport
-## version 1.7.0 
-
-Just stream me what can hear phone, server will do transcription stuff and other things
-
-> ` Mind your words, they are important. `  @ 2026 Github ZEN API 
 
 
 
