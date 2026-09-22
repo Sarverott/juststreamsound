@@ -1,0 +1,31 @@
+{
+  "name": "juststreamsound",
+  "version": "1.0.0",
+  "description": "Just stream me what can hear phone, server will do transcription stuff and other things",
+  "keywords": [
+    "android",
+    "kotlin",
+    "stream",
+    "app",
+    "aistudio",
+    "ai",
+    "coding",
+    "llm",
+    "usingAIandProud"
+  ],
+  "homepage": "https://github.com/Sarverott/juststreamsound#readme",
+  "bugs": {
+    "url": "https://github.com/Sarverott/juststreamsound/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sarverott/juststreamsound.git"
+  },
+  "license": "MIT",
+  "author": "Sett Sarverott",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "task"
+  }
+}

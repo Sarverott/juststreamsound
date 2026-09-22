@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+vars:
+  GREETING: Hello, world!
+
+tasks:
+  releasenote:
+    cmds:
+      - tail -n +7 ./README.md > ./docs/LATEST_RELEASE.md
+      - echo "# \`JustStreamSound\` - Android app to make phone be microport" > ./README.md
+      - echo "## version $(npm version --json | jq .juststreamsound --raw-output) " >> ./README.md
+      - echo "" >> ./README.md
+      - echo "Just stream me what can hear phone, server will do transcription stuff and other things" >> ./README.md
+      - echo "" >> ./README.md
+      - echo "> \` $(curl https://api.github.com/zen) \`  @ 2026 Github ZEN API " >> ./README.md
+      - cat ./docs/LATEST_RELEASE.md >> ./README.md
+  update:
+    desc: standard git update releasing triggerer
+    cmds:
+      - rm ./docs/LATEST_RELEASE.md
+      - git add .
+      - git commit -m "composing all changes before version bump"
+      - npm version minor
+      - task: releasenote
+      - git add .
+      - git commit -m "update README.md for new release $(npm version --json | jq .juststreamsound --raw-output)"
+      # - git push
+      - git tag $(npm version --json | jq .juststreamsound --raw-output)
+      - git push
+  default:
+    desc: Print a greeting message
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
