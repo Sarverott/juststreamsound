@@ -1,0 +1,6 @@
+{
+  "name": "Audio Streamer",
+  "description": "Stream microphone audio in real time to a server for speech-to-text processing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
