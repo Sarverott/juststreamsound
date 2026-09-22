@@ -29,7 +29,7 @@ tasks:
       - git add .
       - git commit -m "update README.md for new release $(npm version --json | jq .juststreamsound --raw-output)"
       - git push
-      - git tag $(npm version --json | jq .juststreamsound --raw-output)
+      - git tag $(npm version --json | jq .juststreamsound --raw-output) -m "$(curl https://api.github.com/zen)"
       - git push
   default:
     desc: Print a greeting message
