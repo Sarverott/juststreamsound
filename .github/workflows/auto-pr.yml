@@ -1,0 +1,49 @@
+name: Auto Create Pull Request
+
+on:
+  push:
+    branches:
+      - 'dev'
+      - 'develop'
+      - 'feature/**'
+      - 'fix/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pr:
+    name: Open PR to Main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create Pull Request targeting main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="${GITHUB_REF_NAME}"
+          echo "Current branch: $BRANCH_NAME"
+          
+          # Check if PR already exists for this branch targeting main
+          EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --base main --state open --json number --jq '.[0].number')
+          
+          if [ -n "$EXISTING_PR" ]; then
+            echo "Pull Request #$EXISTING_PR is already open for $BRANCH_NAME -> main."
+          else
+            echo "Opening Pull Request for $BRANCH_NAME -> main..."
+            gh pr create \
+              --base main \
+              --head "$BRANCH_NAME" \
+              --title "Merge $BRANCH_NAME into main" \
+              --body "### Automated Pull Request
+              
+- **Source Branch:** \`$BRANCH_NAME\`
+- **Target Branch:** \`main\`
+- **Trigger Commit:** \`${{ github.sha }}\`
+
+This Pull Request was opened automatically. CI verification (unit tests & security audit) will run automatically."
+          fi
