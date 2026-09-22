@@ -19,6 +19,8 @@ tasks:
   update:
     desc: standard git update releasing triggerer
     cmds:
+      - git fetch
+      - git pull
       - rm ./docs/LATEST_RELEASE.md
       - git add .
       - git commit -m "composing all changes before version bump"
@@ -28,7 +30,7 @@ tasks:
       - git commit -m "update README.md for new release $(npm version --json | jq .juststreamsound --raw-output)"
       - git push
       - git tag $(npm version --json | jq .juststreamsound --raw-output)
-      - git push origin releasing
+      - git push
   default:
     desc: Print a greeting message
     cmds:
