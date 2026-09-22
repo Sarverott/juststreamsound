@@ -26,9 +26,9 @@ tasks:
       - task: releasenote
       - git add .
       - git commit -m "update README.md for new release $(npm version --json | jq .juststreamsound --raw-output)"
-      # - git push
-      - git tag $(npm version --json | jq .juststreamsound --raw-output)
       - git push
+      - git tag $(npm version --json | jq .juststreamsound --raw-output)
+      - git push origin releasing
   default:
     desc: Print a greeting message
     cmds:
